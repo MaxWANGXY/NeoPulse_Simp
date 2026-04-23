@@ -6,9 +6,9 @@
 <title>NeoPulse · 意脉科技 BP Deck</title>
 <style>
   html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#050508; font-family:'Inter',sans-serif; }
-  /* Fixed logical canvas 1600x900 — matches design reference. JS scales via transform to fit any window. */
+  /* Fixed logical canvas 1920x1080 — matches design reference (1440x810 slide + breathing room). JS scales via transform to fit any window. */
   #stage { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-  #frame { width:1600px; height:900px; border:0; background:#050508; transition:opacity .35s ease; transform-origin:center center; flex-shrink:0; }
+  #frame { width:1920px; height:1080px; border:0; background:#050508; transition:opacity .35s ease; transform-origin:center center; flex-shrink:0; }
   #frame.fading { opacity:0; }
   .nav-dots { position:fixed; right:30px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:12px; z-index:1000; }
   .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.22); cursor:pointer; transition:all .3s ease; }
@@ -3179,9 +3179,9 @@ body{
     }
   });
 
-  // Fit the fixed 1600x900 iframe to actual window via transform:scale
+  // Fit the fixed 1920x1080 iframe to actual window via transform:scale
   function fitFrame() {
-    const s = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
     frame.style.transform = 'scale(' + s + ')';
   }
   window.addEventListener('resize', fitFrame);
