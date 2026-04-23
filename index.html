@@ -14,10 +14,16 @@
   .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.22); cursor:pointer; transition:all .3s ease; }
   .dot.active { background:#00E5FF; transform:scale(1.4); box-shadow:0 0 10px rgba(0,229,255,.8); }
   .page-indicator { position:fixed; left:24px; bottom:20px; color:rgba(255,255,255,.35); font:12px/1 Inter,sans-serif; letter-spacing:1px; z-index:1000; user-select:none; }
+  /* Tap zones: left 22% → prev, right 22% → next. z-index 500 sits above iframe (default 0) but below nav-dots (1000). */
+  .tap-zone { position:fixed; top:0; bottom:0; width:22%; z-index:500; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+  .tap-left  { left:0; }
+  .tap-right { right:0; }
 </style>
 </head>
 <body>
   <div id="stage"><iframe id="frame" title="NeoPulse Slide"></iframe></div>
+  <div class="tap-zone tap-left"  id="tapLeft"  aria-label="上一页"></div>
+  <div class="tap-zone tap-right" id="tapRight" aria-label="下一页"></div>
   <div class="nav-dots" id="dots"></div>
   <div class="page-indicator" id="pageInd">01 / 10</div>
 
@@ -3178,6 +3184,10 @@ body{
       go(cur + (m.deltaY > 0 ? 1 : -1));
     }
   });
+
+  // Mobile / tap-zone navigation
+  document.getElementById('tapLeft').addEventListener('click', () => go(cur - 1));
+  document.getElementById('tapRight').addEventListener('click', () => go(cur + 1));
 
   // Fit the fixed 1920x1080 iframe to actual window via transform:scale
   function fitFrame() {
